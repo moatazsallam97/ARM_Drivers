@@ -140,7 +140,7 @@ void Interrupt_Enable(User_Data_Type given_user_data){
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-void Interrupt_Disable(User_Data_Type given_user_data){
+void Interrupt_Disable(User_Data_Type given_user_data){    //0xE000E100
     uint8 IntNumber = given_user_data.InetrruptType;
     DISX(IntNumber) = (1 << IntNumber);
 }
