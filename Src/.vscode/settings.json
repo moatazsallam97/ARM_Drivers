@@ -3,6 +3,8 @@
         "gpio_types.h": "c",
         "mcu_hw.h": "c",
         "gpio.h": "c",
-        "std_types.h": "c"
+        "std_types.h": "c",
+        "platform_types.h": "c",
+        "gpt.h": "c"
     }
 }

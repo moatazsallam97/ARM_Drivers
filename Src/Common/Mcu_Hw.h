@@ -63,7 +63,8 @@ typedef union {
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-                                            /* NVIC REGISTERS */
+
+/************************************************* NVIC Registers *****************************************************/
 
 #define CORTEXM4_PERI_BASE_ADDRESS             0xE000E000  
 
@@ -76,7 +77,7 @@ typedef union {
 #define ACTIVEX(X)                             *((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x300 + ((X / 32) * 4))) // as X is the number of the interrupt. >> Determines the base address of the reg.
 #define PRIX(X)                                *((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x400 + ((X / 4) * 4))) // as X is the number of the interrupt. >> Determines the base address of the reg.
 
-                                            /* GPIO REGISTERS */   // 0x40000000, 0x400FFFFF
+/************************************************* GPIO Registers *****************************************************/
 
 #define RCGCGPIO_BASE_ADDRESS                  0x400FE000
 #define RCGCGPIO                               *((volatile uint32*)(RCGCGPIO_BASE_ADDRESS + 0x608))  // Enabling or Disabling Clock for GPIOS
@@ -124,6 +125,64 @@ typedef union {
 #define GPIOPCellID2(X)                        *((volatile uint32*)(GPIO_BASE_ADDRESS_PORT(X) + 0xFF8))
 #define GPIOPCellID3(X)                        *((volatile uint32*)(GPIO_BASE_ADDRESS_PORT(X) + 0xFFC))
 
+/************************************************* GPT Registers *****************************************************/
+
+#define GPT_TIMERX_BASE_ADDRESS(X)             0x40030000 + (0x1000 * (X))
+#define GPT_WIDETIMERX_BASE_ADDRESS(X)         (((X) <= 1) ? (0x40036000 + (0x1000 * (X))) : (0x4004A000 + (0x1000 * (X))))
+
+
+#define GPTMCFG(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x000))
+#define GPTMCFG_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x000))
+
+#define GPTMTAMR(X)                           *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x004))
+#define GPTMTAMR_WIDE(X)                      *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x004))
+
+#define GPTMTBMR(X)                           *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x008))
+#define GPTMTBMR_WIDE(X)                      *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x008))
+
+#define GPTMCTL(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x00C))
+#define GPTMCTL_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x00C))
+
+#define GPTMIMR(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x018))
+#define GPTMIMR_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x018))
+
+#define GPTMRIS(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x01C))
+#define GPTMRIS_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x01C))
+
+#define GPTMMIS(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x020))
+#define GPTMMIS_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x020))
+
+#define GPTMICR(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x024))
+#define GPTMICR_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x024))
+
+#define GPTMTAILR(X)                          *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x028))
+#define GPTMTAILR_WIDE(X)                     *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x028))
+
+#define GPTMTAPR(X)                           *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x038))
+#define GPTMTAPR_WIDE(X)                      *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x038))
+
+#define GPTMTBPR(X)                           *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x03C))
+#define GPTMTBPR_WIDE(X)                      *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x03C))
+
+#define GPTMTAR(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x048))
+#define GPTMTAR_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x048))
+
+#define GPTMTBR(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x04C))
+#define GPTMTBR_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x04C))
+
+#define GPTMTAV(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x050))
+#define GPTMTAV_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x050))
+
+#define GPTMTBV(X)                            *((volatile uint32*)(GPT_TIMERX_BASE_ADDRESS(X) + 0x054))
+#define GPTMTBV_WIDE(X)                       *((volatile uint32*)(GPT_WIDETIMERX_BASE_ADDRESS(X) + 0x054))
+
+/* GPTMIMR REG USED BITS */
+#define TAMR   0
+#define TACDIR 4
+#define TAWOT  6
+
+#define TAEN   0
+
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS LIKE FUNCTION
  *********************************************************************************************************************/
@@ -146,7 +205,7 @@ typedef union {
 
  
 
- 
+
 #endif  /* MCU_HW_H */
 
 /**********************************************************************************************************************

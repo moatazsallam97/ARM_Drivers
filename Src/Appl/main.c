@@ -1,10 +1,9 @@
-#include "_Gpio.h"
+#include "Gpt.h"
 
-extern const ConfigType Port_Config1;
+extern const Gpt_ConfigType ConfigType1;
 
 int main(void){
-	Gpio_Init();
-	Port_Init(Port_Config1);
+	
 	while(1){
 		
 	}

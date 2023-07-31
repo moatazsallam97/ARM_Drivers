@@ -2,20 +2,21 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  IntCtrl.h
- *       Module:  IntCtrl
+ *         File:  Gpt.h
+ *       Module:  Gpt
  *
- *  Description:  header file for IntCtrl Module    
+ *  Description:  header file for Gpt Module    
  *  
  *********************************************************************************************************************/
-#ifndef IntCtrl_H
-#define IntCtrl_H
+#ifndef Gpt_H
+#define Gpt_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
+ 
 #include "Std_Types.h"
-#include "IntCtrl_Cfg.h"
+#include "Gpt_Cfg.h"
 #include "Mcu_Hw.h"
 
 /**********************************************************************************************************************
@@ -42,88 +43,76 @@
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
 
-/******************************************************************************
-* \Syntax          : void SVC_Handler(void)                                      
-* \Description     : Turn on the privileged mode.                                                                               
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : uint8                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
-void SVC_Handler(void);
-
-/******************************************************************************
-* \Syntax          : void PrivilegeOFF(void)                                      
-* \Description     : Turn off the privileged mode.                                                                               
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : uint8                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
-void PrivilegeOFF(void);
-
- /******************************************************************************
-* \Syntax          : void Group_SubGroup_INIT(void)                                      
-* \Description     : initialize APINT register for the Group & SubGroup based                                                                               
-*                    on user inputs.                                                                               
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : None                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
-void Group_SubGroup_Init(void);
-
- /******************************************************************************
-* \Syntax          : void Priority_Set(User_Data_Type given_user_data)                                      
-* \Description     : Sets the priorties for each interrupt user wants to use.                                                                                                                                                              
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : User_Data_Type                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
-void Priority_Set(User_Data_Type given_user_data);
-
- /******************************************************************************
-* \Syntax          : void Interrupt_Enable(User_Data_Type given_user_data)                                      
-* \Description     : Enables the Interrupts that user want to use.                                                                                                                                                              
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : User_Data_Type                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
-void Interrupt_Enable(User_Data_Type given_user_data);
-
- /******************************************************************************
-* \Syntax          : void Interrupt_Disable(User_Data_Type given_user_data)                                      
-* \Description     : Disable the Interrupts that user want to use.                                                                                                                                                              
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : User_Data_Type                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
-void Interrupt_Disable(User_Data_Type given_user_data); 
  
 /******************************************************************************
-* \Syntax          : void IntCtrl_Init(void)                                      
-* \Description     : initialize Nvic\SCB Module by parsing the Configuration 
-*                    into Nvic\SCB registers                                    
-*                                                                             
+* \Syntax          : void Gpt_Init(void);                                    
+* \Description     : Initialize all predefined Timers.                                                                              
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : None                     
+* \Parameters (in) : None                    
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-void IntCtrl_Init(void);
- 
-#endif  /* IntCtrl_H */
+void Gpt_Init(void);
+
+/******************************************************************************
+* \Syntax          : void Gpt_StartTimer(Gpt_ConfigType ConfigType);                                    
+* \Description     : Start a certain timer depending on the configtype.
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : Gpt_ConfigType ConfigType.                    
+* \Parameters (out): None                                                      
+* \Return value:   : None
+*******************************************************************************/
+void Gpt_StartTimer(Gpt_ConfigType ConfigType);
+
+/******************************************************************************
+* \Syntax          : void Gpt_StopTimer(Gpt_ChannelId ChannelId);                                    
+* \Description     : Stops a certain timer depending on ChannelId                                                                              
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : None                    
+* \Parameters (out): None                                                      
+* \Return value:   : None
+*******************************************************************************/
+void Gpt_StopTimer(Gpt_ChannelId ChannelId);
+
+/******************************************************************************
+* \Syntax          : Gpt_TimerValue Gpt_GetTimeElapsed(Gpt_ConfigType ConfigType);                                    
+* \Description     : Calculates the time elapsed.                                                                              
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : Gpt_ConfigType ConfigType                    
+* \Parameters (out): Gpt_TimerValue                                                      
+* \Return value:   : Gpt_TimerValue
+*******************************************************************************/
+Gpt_TimerValue Gpt_GetTimeElapsed(Gpt_ConfigType ConfigType);
+
+/******************************************************************************
+* \Syntax          : void Gpt_Init(void);                                    
+* \Description     : Initialize all predefined Timers.                                                                              
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : None                    
+* \Parameters (out): None                                                      
+* \Return value:   : None
+*******************************************************************************/
+//Gpt_TimerValue Gpt_GetTimeRemaining(Gpt_ChannelId ChannelId);
+
+
+/******************************************************************************
+* \Syntax          : void Gpt_Init(void);                                    
+* \Description     : Initialize all predefined Timers.                                                                              
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : None                    
+* \Parameters (out): None                                                      
+* \Return value:   : None
+*******************************************************************************/
+//Std_ReturnType Gpt_GetPredefTimerValue(Gpt_PredefTimerType ChannelId);
+
+#endif  /* Gpt_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: IntCtrl.h
+ *  END OF FILE: Gpt.h
  *********************************************************************************************************************/
