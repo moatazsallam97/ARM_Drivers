@@ -138,7 +138,7 @@ void Gpt_StartTimer(Gpt_ConfigType ConfigType){
         }
         //else {}  >> One_Shot_Mode Not supported.
         GPTMTAMR(ConfigType.ChannelId) |= (1 << TACDIR);                    // Timer counts up (By default) > no config for this option.
-        GPTMTAMR(ConfigType.ChannelId) &= (1 << TAWOT);                     // Timer Starts Counting once it's enabled.
+        GPTMTAMR(ConfigType.ChannelId) &= ~(1 << TAWOT);                     // Timer Starts Counting once it's enabled.
 
         switch (ConfigType.ChannelTickFrequency){                           // Timer Frequency >> Prescaler Control.
             case ChannelTickFrequency_16Mhz:
@@ -170,7 +170,7 @@ void Gpt_StartTimer(Gpt_ConfigType ConfigType){
         }
         //else {}  >> One_Shot_Mode Not supported.
         GPTMTAMR_WIDE(ConfigType.ChannelId - 6) |= (1 << TACDIR);                    // Timer counts up (By default) > no config for this option.
-        GPTMTAMR_WIDE(ConfigType.ChannelId - 6) &= (1 << TAWOT);                     // Timer Starts Counting once it's enabled.
+        GPTMTAMR_WIDE(ConfigType.ChannelId - 6) &= ~(1 << TAWOT);                     // Timer Starts Counting once it's enabled.
     
         switch (ConfigType.ChannelTickFrequency){                                    // Timer Frequency >> Prescaler Control.
             case ChannelTickFrequency_16Mhz:

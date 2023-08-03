@@ -183,6 +183,25 @@ typedef union {
 
 #define TAEN   0
 
+/****************************************************** WDT REGISTERS ***********************************************************/
+/************ WDT1 ****************/
+
+#define WDT_BASE_ADDRESS                      0x40001000
+
+#define RCGCWD                                *((volatile uint32*)(0x400FE000 + 0x600)) 
+#define WDTLOAD                               *((volatile uint32*)(WDT_BASE_ADDRESS + 0x000))
+#define WDTCTL                                *((volatile uint32*)(WDT_BASE_ADDRESS + 0x008))
+#define WDTICR                                *((volatile uint32*)(WDT_BASE_ADDRESS + 0x00C))
+#define WDTLOCK                               *((volatile uint32*)(WDT_BASE_ADDRESS + 0xC00))
+
+/****************** BITS ******************/
+
+#define R1      1
+#define INTEN   0
+#define RESEN   1
+#define INTTYPE 2
+#define WRC     31
+
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS LIKE FUNCTION
  *********************************************************************************************************************/

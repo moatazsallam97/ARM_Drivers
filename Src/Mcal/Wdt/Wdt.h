@@ -2,21 +2,21 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  Gpt.h
- *       Module:  Gpt
+ *         File:  Wdt.h
+ *       Module:  Wdt
  *
- *  Description:  header file for Gpt Module    
+ *  Description:  header file for Wdt Module    
  *  
  *********************************************************************************************************************/
-#ifndef Gpt_H
-#define Gpt_H
+#ifndef Wdt_H
+#define Wdt_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
  
 #include "Std_Types.h"
-#include "Gpt_Cfg.h"
+#include "Wdt_Cfg.h"
 #include "Mcu_Hw.h"
 
 /**********************************************************************************************************************
@@ -43,54 +43,52 @@
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
 
- 
 /******************************************************************************
-* \Syntax          : void Gpt_Init(void);                                    
-* \Description     : Initialize all predefined Timers.                                                                              
+* \Syntax          : void Wdg_Init(Wdg_InitialTimeout InitialTimeout)                                      
+* \Description     : Initialize the watchdog timer.                                                                               
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : None                    
+* \Parameters (in) : Wdg_InitialTimeout InitialTimeout                     
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-void Gpt_Init(void);
+void Wdg_Init(Wdg_InitialTimeout InitialTimeout);
 
 /******************************************************************************
-* \Syntax          : void Gpt_StartTimer(Gpt_ConfigType ConfigType);                                    
-* \Description     : Start a certain timer depending on the configtype.
+* \Syntax          : void Wdg_SetTriggerCondition(uint16 Timeout)                                      
+* \Description     : Refreshes the watchdog timer.                                                                               
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : Gpt_ConfigType ConfigType.                    
+* \Parameters (in) : uint16 Timeout                     
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-void Gpt_StartTimer(Gpt_ConfigType ConfigType);
+void Wdg_SetTriggerCondition(uint16 Timeout);
 
 /******************************************************************************
-* \Syntax          : void Gpt_StopTimer(Gpt_ChannelId ChannelId);                                    
-* \Description     : Stops a certain timer depending on ChannelId                                                                              
+* \Syntax          : void Wdg_InterruptNotification(void)                                  
+* \Description     : Notification for the interrupt.                                                                               
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : None                    
+* \Parameters (in) : None                     
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-void Gpt_StopTimer(Gpt_ChannelId ChannelId);
+void Wdg_InterruptNotification(void);
 
 /******************************************************************************
-* \Syntax          : Gpt_TimerValue Gpt_GetTimeElapsed(Gpt_ConfigType ConfigType);                                    
-* \Description     : Calculates the time elapsed.                                                                              
+* \Syntax          : void WDT0_Handler(void)                                  
+* \Description     : ISR of the watchdog timer.                                                                               
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : Gpt_ConfigType ConfigType                    
-* \Parameters (out): Gpt_TimerValue                                                      
-* \Return value:   : Gpt_TimerValue
+* \Parameters (in) : None                     
+* \Parameters (out): None                                                      
+* \Return value:   : None
 *******************************************************************************/
-Gpt_TimerValue Gpt_GetTimeElapsed(Gpt_ConfigType ConfigType);
+void WDT0_Handler(void);
 
-
-#endif  /* Gpt_H */
+#endif  /* Wdt_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: Gpt.h
+ *  END OF FILE: Wdt.h
  *********************************************************************************************************************/
