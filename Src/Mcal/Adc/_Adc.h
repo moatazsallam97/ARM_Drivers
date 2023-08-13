@@ -2,21 +2,21 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  Wdt.h
- *       Module:  Wdt
+ *         File:  _Adc.h
+ *       Module:  _Adc
  *
- *  Description:  header file for Wdt Module    
+ *  Description:  header file for _Adc Module    
  *  
  *********************************************************************************************************************/
-#ifndef Wdt_H
-#define Wdt_H
+#ifndef _Adc_H
+#define _Adc_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
  
 #include "Std_Types.h"
-#include "Wdt_Cfg.h"
+#include "_Adc_Cfg.h"
 #include "Mcu_Hw.h"
 
 /**********************************************************************************************************************
@@ -41,54 +41,76 @@
  
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
- *********************************************************************************************************************/
+*********************************************************************************************************************/
 
 /******************************************************************************
-* \Syntax          : void Wdg_Init(Wdg_InitialTimeout InitialTimeout)                                      
-* \Description     : Initialize the watchdog timer.                                                                               
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : Wdg_InitialTimeout InitialTimeout                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
-void Wdg_Init(Wdg_InitialTimeout InitialTimeout);
-
-/******************************************************************************
-* \Syntax          : void Wdg_SetTriggerCondition(uint16 Timeout)                                      
-* \Description     : Refreshes the watchdog timer.                                                                               
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : uint16 Timeout                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
-void Wdg_SetTriggerCondition(uint16 Timeout);
-
-/******************************************************************************
-* \Syntax          : void Wdg_InterruptNotification(void)                                  
-* \Description     : Notification for the interrupt.                                                                               
+* \Syntax          : void Adc_Init(void)
+* \Description     : Initalizes Adc, Gpio Clock                                                                   
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
 * \Parameters (in) : None                     
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-void Wdg_InterruptNotification(void);
+void Adc_Init(void);
 
 /******************************************************************************
-* \Syntax          : void WDT0_Handler(void)                                  
-* \Description     : ISR of the watchdog timer.                                                                               
+* \Syntax          : void SampleSequencer_Init(SampleSequencerConfigType* SSConfig)
+* \Description     : Initalizes SampleSequencer Configuration.                                                                   
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : None                     
+* \Parameters (in) : SampleSequencerConfigType* SampleSequencerConfig 
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-void WDT0_Handler(void);
+void SampleSequencer_Init(SampleSequencerConfigType* SSConfig);
 
-#endif  /* Wdt_H */
+/******************************************************************************
+* \Syntax          : void Channels_Init(Adc_ConfigType *ConfigType);
+* \Description     : Configure Samples Controling, Gpio Clock                                                                   
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : Adc_ConfigType* ConfigType                     
+* \Parameters (out): None                                                      
+* \Return value:   : None
+*******************************************************************************/
+void Channels_Init(Adc_ConfigType* ConfigType);
+
+/******************************************************************************
+* \Syntax          : void Adc_StartGroupConversion(Adc_GroupType GroupType, Adc_Type AdcType);
+* \Description     : Starts SampleSequencer                                                                   
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : Adc_GroupType GroupType                     
+* \Parameters (out): None                                                      
+* \Return value:   : None
+*******************************************************************************/
+void Adc_StartGroupConversion(Adc_GroupType GroupType, Adc_Type AdcType);
+
+/******************************************************************************
+* \Syntax          : void Adc_StopGroupConversion(Adc_GroupType GroupType, Adc_Type AdcType);
+* \Description     : Stops SampleSequencer                                                                   
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : Adc_GroupType GroupType                     
+* \Parameters (out): None                                                      
+* \Return value:   : None
+*******************************************************************************/
+void Adc_StopGroupConversion(Adc_GroupType GroupType, Adc_Type AdcType);
+
+/******************************************************************************
+* \Syntax          : td_ReturnType Adc_ReadGroup(Adc_GroupType GroupType, Adc_Type AdcType, Adc_ValueGroupType* ValueGroupType)
+* \Description     : Reads from the FIFO register of the desired sample sequencer.                                                                   
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : Adc_GroupType GroupType, Adc_Type AdcType             
+* \Parameters (out): Adc_ValueGroupType* ValueGroupType               
+* \Return value:   : Std_ReturnType
+*******************************************************************************/
+Std_ReturnType Adc_ReadGroup(Adc_GroupType GroupType, Adc_Type AdcType, Adc_ValueGroupType* ValueGroupType);
+
+#endif  /* _Adc_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: Wdt.h
+ *  END OF FILE: _Adc.h
  *********************************************************************************************************************/

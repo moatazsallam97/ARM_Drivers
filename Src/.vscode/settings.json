@@ -6,6 +6,8 @@
         "std_types.h": "c",
         "platform_types.h": "c",
         "gpt.h": "c",
-        "wdt_types.h": "c"
+        "wdt_types.h": "c",
+        "adc.h": "c",
+        "_adc.h": "c"
     }
 }

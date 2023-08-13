@@ -64,6 +64,19 @@ typedef union {
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
+/****************************************************** Clock Registers ***********************************************************/
+
+#define RCGC_BASE_ADDRESS                      0x400FE000                                        // Base Address
+
+/******* Regs ********/
+#define RCGCGPIO                               *((volatile uint32*)(RCGC_BASE_ADDRESS + 0x608))  // Enabling or Disabling Clock for GPIOS
+#define RCGCADC                                *((volatile uint32*)(RCGC_BASE_ADDRESS + 0x638))  // Enabling or Disabling Clock for ADCs 
+#define RCGCWD                                 *((volatile uint32*)(RCGC_BASE_ADDRESS + 0x600))  // Enabling or Disabling Clock for WDTs
+
+/**** Bits *****/
+#define R0 0
+#define R1 1
+
 /************************************************* NVIC Registers *****************************************************/
 
 #define CORTEXM4_PERI_BASE_ADDRESS             0xE000E000  
@@ -78,10 +91,6 @@ typedef union {
 #define PRIX(X)                                *((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS + 0x400 + ((X / 4) * 4))) // as X is the number of the interrupt. >> Determines the base address of the reg.
 
 /************************************************* GPIO Registers *****************************************************/
-
-#define RCGCGPIO_BASE_ADDRESS                  0x400FE000
-#define RCGCGPIO                               *((volatile uint32*)(RCGCGPIO_BASE_ADDRESS + 0x608))  // Enabling or Disabling Clock for GPIOS
-
 
 /* APB */
 #define GPIO_BASE_ADDRESS_PORT(X)              ((X) <= _D ? (0x40004000 + ((X) * 0x1000))  :  (0x40020000 + ((X) * 0x1000)))
@@ -124,6 +133,14 @@ typedef union {
 #define GPIOPCellID1(X)                        *((volatile uint32*)(GPIO_BASE_ADDRESS_PORT(X) + 0xFF4))
 #define GPIOPCellID2(X)                        *((volatile uint32*)(GPIO_BASE_ADDRESS_PORT(X) + 0xFF8))
 #define GPIOPCellID3(X)                        *((volatile uint32*)(GPIO_BASE_ADDRESS_PORT(X) + 0xFFC))
+
+/**************** GPIO PORTS **********************/
+#define P_A 0
+#define P_B 1
+#define P_C 2
+#define P_D 3
+#define P_E 4
+#define P_F 5
 
 /************************************************* GPT Registers *****************************************************/
 
@@ -188,7 +205,6 @@ typedef union {
 
 #define WDT_BASE_ADDRESS                      0x40001000
 
-#define RCGCWD                                *((volatile uint32*)(0x400FE000 + 0x600)) 
 #define WDTLOAD                               *((volatile uint32*)(WDT_BASE_ADDRESS + 0x000))
 #define WDTCTL                                *((volatile uint32*)(WDT_BASE_ADDRESS + 0x008))
 #define WDTICR                                *((volatile uint32*)(WDT_BASE_ADDRESS + 0x00C))
@@ -196,11 +212,111 @@ typedef union {
 
 /****************** BITS ******************/
 
-#define R1      1
 #define INTEN   0
 #define RESEN   1
 #define INTTYPE 2
 #define WRC     31
+
+/****************************************************** ADC REGISTERS ***********************************************************/
+
+#define ADC_BASE_ADDRESS(X)                   (X == 0) ? 0x40038000   :   0x40039000
+
+/***************************** Regs ************************************/
+#define ADCACTSS(X)                           *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x000))
+#define ADCRIS(X)                             *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x004))
+#define ADCIM(X)                              *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x008))
+#define ADCISC(X)                             *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x00C))
+#define ADCOSTAT(X)                           *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x010))
+#define ADCEMUX(X)                            *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x014))
+#define ADCUSTAT(X)                           *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x018))
+#define ADCTSSEL(X)                           *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x01C))
+#define ADCSSPRI(X)                           *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x020))
+#define ADCSPC(X)                             *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x024))
+#define ADCPSSI(X)                            *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x028))
+#define ADCSAC(X)                             *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x030))
+#define ADCDCISC(X)                           *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x034))
+#define ADCCTL(X)                             *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x038))
+#define ADCSSMUX(X, Y)                        *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x040 + (Y * 0x20)))
+#define ADCSSCTL(X, Y)                        *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x044 + (Y * 0x20)))
+#define ADCSSFIFO(X, Y)                       *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x048 + (Y * 0x20)))
+#define ADCSSFSTAT(X, Y)                      *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x04C + (Y * 0x20)))
+#define ADCSSOP(X, Y)                         *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x050 + (Y * 0x20)))
+#define ADCSSDC(X, Y)                         *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0x054 + (Y * 0x20)))
+#define ADCDCRIC(X)                           *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0xD00))
+#define ADCDCCTLy(X, Y)                       *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0xE00 + (Y * 0x4)))
+#define ADCDCCMPy(X, Y)                       *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0xE40 + (Y * 0x4)))
+#define ADCPP(X)                              *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0xFC0))
+#define ADCCC(X)                              *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0xFC8))
+#define ADCPC(X)                              *((volatile uint32*)(ADC_BASE_ADDRESS(X) + 0xFC4))
+
+/****************************** Bits *************************************/
+
+#define EM0 0
+#define EM1 4
+#define EM2 8
+#define EM3 12
+
+#define MASK0   0
+#define MASK1   1
+#define MASK2   2
+#define MASK3   3
+#define DCONSS0 16
+#define DCONSS1 17
+#define DCONSS2 18
+#define DCONSS3 19
+
+#define SS0 0
+#define SS1 4
+#define SS2 8
+#define SS3 12
+
+#define MUX0 0
+#define MUX1 4
+#define MUX3 8
+#define MUX4 12
+#define MUX5 16
+#define MUX6 20
+#define MUX7 24
+#define MUX8 28
+
+#define D0   0
+#define END0 1
+#define IE0  2
+#define TS0  3
+#define D1   4
+#define END1 5
+#define IE1  6
+#define TS1  7
+#define D2   8
+#define END2 9
+#define IE2  10
+#define TS2  11
+#define D3   12
+#define END3 13
+#define IE3  14
+#define TS3  15
+#define D4   16
+#define END4 17
+#define IE4  18
+#define TS4  19
+#define D5   20
+#define END5 21
+#define IE5  22
+#define TS5  23
+#define D6   24
+#define END6 25
+#define IE6  26
+#define TS6  27
+#define D7   28
+#define END7 29
+#define IE7  30
+#define TS7  31
+
+#define ASEN0 0
+#define ASEN1 1
+#define ASEN2 2
+#define ASEN3 3
+#define BUSY  16
 
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS LIKE FUNCTION

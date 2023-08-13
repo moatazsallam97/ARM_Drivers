@@ -2,33 +2,36 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  Gpio_Cfg.h
- *       Module:  Gpio
+ *         File:  _Adc_Cfg.h
+ *       Module:  _Adc
  *
  *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
-#ifndef GPIO_CFG_H
-#define GPIO_CFG_H
+#ifndef _Adc_CFG_H
+#define _Adc_CFG_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
 
 #include "Std_Types.h"
-#include "Gpio_Types.h"
-#include "Mcu_Hw.h"
+#include "_Adc_Types.h"
 
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
-#define PORT_A STD_OFF
-#define PORT_B STD_ON
-#define PORT_C STD_OFF
-#define PORT_D STD_OFF
-#define PORT_E STD_OFF
-#define PORT_F STD_OFF
+#define ADC0 STD_ON                                   // ADC0
+#define ADC1 STD_OFF                                  // ADC1
+
+#define SS_NUM 4
+#define SAMPLES_NUM 1                                  // Total nubmer of samples be programmed
+#define SS0_SAMPLES_USED 1                             // Total number of samples in SS0 (From 0 to 8)
+#define SS1_SAMPLES_USED 0                             // Total number of samples in SS0 (From 0 to 4)
+#define SS2_SAMPLES_USED 0                             // Total number of samples in SS0 (From 0 to 4)
+#define SS3_SAMPLES_USED 0                             // Total number of samples in SS0 (From 0 to 1)
+
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
@@ -39,8 +42,8 @@
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
 
-#endif  /* GPIO_CFG_H */
+#endif  /* _Adc_CFG_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: Gpio_Cfg.h
+ *  END OF FILE: _Adc_Cfg.h
  *********************************************************************************************************************/
